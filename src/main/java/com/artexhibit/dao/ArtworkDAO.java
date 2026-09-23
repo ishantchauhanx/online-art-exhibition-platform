@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtworkDAO {
+public class ArtworkDAO implements Repository<Artwork> {
 
     public void saveArtwork(Artwork artwork) throws DatabaseException {
         String sql = "INSERT INTO artworks (artist_id, title, description, medium, price, image_url, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -76,6 +76,11 @@ public class ArtworkDAO {
 
     public List<Artwork> getAllArtworks() throws DatabaseException {
         return fetchArtworks("SELECT * FROM artworks ORDER BY created_at DESC", null);
+    }
+
+    @Override
+    public List<Artwork> findAll() throws DatabaseException {
+        return getAllArtworks();
     }
 
     private List<Artwork> fetchArtworks(String sql, Integer artistId) throws DatabaseException {

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDAO {
+public class UserDAO implements Repository<User> {
 
     public void registerUser(User user) throws DatabaseException {
         String sql = "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)";
@@ -66,6 +66,11 @@ public class UserDAO {
         }
 
         return users;
+    }
+
+    @Override
+    public List<User> findAll() throws DatabaseException {
+        return getAllUsers();
     }
 
     public void updateRole(int userId, String role) throws DatabaseException {

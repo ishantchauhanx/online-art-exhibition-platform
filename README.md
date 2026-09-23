@@ -121,11 +121,18 @@ CREATE TABLE feedback (
 
 Update database credentials in `src/main/java/com/artexhibit/config/DBConnection.java`.
 
+The application reads credentials from environment variables so secrets are not committed:
+
+```powershell
+$env:ART_DB_USERNAME = "root"
+$env:ART_DB_PASSWORD = "your_mysql_password"
+```
+
+For a local MySQL installation with no password, leave `ART_DB_PASSWORD` empty. Set these variables before starting Tomcat.
+
 ```java
 private static final String URL =
     "jdbc:mysql://localhost:3306/art_exhibition_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-private static final String USERNAME = "root";
-private static final String PASSWORD = "root";
 ```
 
 ## Run the Application
@@ -152,10 +159,12 @@ http://localhost:8080/art-exhibition-platform/login.jsp
 
 This project matches the Java Web Project rubric:
 
-- Problem understanding and solution design
-- Java core concepts and OOP
-- JDBC database integration
-- Servlet-based web integration
+- **Problem understanding and solution design:** MVC separation, role-based workflows, and relational schema design.
+- **Core Java concepts:** POJO encapsulation, inheritance from `HttpServlet` and `Exception`, checked exception handling, `List<T>` collections, generics, and the polymorphic `Repository<T>` interface implemented by `UserDAO` and `ArtworkDAO`.
+- **JDBC database integration:** `DBConnection`, `PreparedStatement`, try-with-resources, foreign keys, and dedicated DAO classes.
+- **Servlet-based web integration:** HTTP request/response handling, `HttpSession` role checks, JSP views, redirects, validation, and servlet mappings.
+
+The separate Java GUI rubric is not applicable because this is a Servlet/JSP web application rather than a Swing or JavaFX desktop application.
 
 ## Notes
 

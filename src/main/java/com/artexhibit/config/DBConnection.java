@@ -7,8 +7,10 @@ import java.sql.SQLException;
 public class DBConnection {
     private static final String URL =
         "jdbc:mysql://localhost:3306/art_exhibition_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
+    private static final String USERNAME =
+        System.getenv().getOrDefault("ART_DB_USERNAME", "root");
+    private static final String PASSWORD =
+        System.getenv().getOrDefault("ART_DB_PASSWORD", "");
 
     private static DBConnection instance;
 
